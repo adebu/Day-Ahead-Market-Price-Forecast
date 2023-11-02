@@ -11,7 +11,7 @@ def get_training_data(start_date, end_date, inputs):
         "demand": f"https://api.esios.ree.es/indicators/1775?type=3&start_date={start_date}&end_date={end_date}",
         "wind": f"https://api.esios.ree.es/indicators/1777?type=20&start_date={start_date}&end_date={end_date}",
         "solar": f"https://api.esios.ree.es/indicators/1779?type=3&start_date={start_date}&end_date={end_date}",
-        "spot_price": f"https://api.esios.ree.es/indicators/600?type=3&start_date={start_date}&end_date={end_date}"
+        "spot_price": f"https://api.esios.ree.es/indicators/602?type=3&start_date={start_date}&end_date={end_date}"
     }
     try:
 
@@ -47,11 +47,15 @@ def extract_values(data, call_data):
     '''
     #values = [v["value"] for v in data["indicator"]["values"]]
     #times = [v["datetime"] for v in data["indicator"]["values"]]
-    values = data["indicator"]["values"]
+    try:
+        values = data["indicator"]["values"]
+        df = pd.DataFrame(values)
+        return df
+    except:
+        print(f'No values could be extracted for {call_data}')
     # Create a DataFrame with 'time' and 'call_data' columns
     #df = pd.DataFrame({ 'time': times, call_data: values })
-    df = pd.DataFrame(values)
-    return df
+
 
 
 def connection_to_DB(df, call_data):
