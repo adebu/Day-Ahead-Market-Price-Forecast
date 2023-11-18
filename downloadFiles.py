@@ -76,7 +76,8 @@ def connection_to_DB(df, call_data):
                 day number, 
                 hour number, 
                 price_ES number, 
-                price_PT number
+                price_PT number,
+                PRIMARY KEY (year, month, day, hour)
                 )
                 '''''')
         conn.commit()

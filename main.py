@@ -1,6 +1,7 @@
 from downloadFiles import get_training_data, extract_values, connection_to_DB
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from ESIOS import ESIOS
 
 start_date = "2019-01-01T00:00:00"
 end_date = "2023-01-01T00:00:00"
@@ -21,8 +22,8 @@ while current_date < end_date:
     formatted_end_of_month = start_date.strftime("%Y-%m-%dT%H:%M:%S")
     for item in training_data:
         try:
-            generation_data = get_training_data(current_date, query_year, item)
-            df = extract_values(generation_data, item)
+            generation_data = ESIOS.get_training_data(current_date, query_year, item)
+            df = ESIOS.extract_values(generation_data, item)
 
             connection_to_DB(df, item)
         except:
