@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+import os
 
 class ESIOS:
     def __init__(self):
