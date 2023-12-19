@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import os
+import sqlite3
 
 class ESIOS:
     def __init__(self):
@@ -95,3 +96,47 @@ class ESIOS:
             except Exception as e:
                 print('Indicators file could not be created')
                 print(e)
+
+    def connection_to_DB(df, call_data, year):
+        '''
+        Calls marginal_to_df and loads the df into a SQLite db
+        '''
+
+        try:
+
+
+            conn = sqlite3.connect('Main_DB')
+            c = conn.cursor()
+            '''
+            # Creates table to store marginalpdbc
+            c.execute(f''''''CREATE TABLE IF NOT EXISTS {call_data} (
+                    year number, 
+                    month number, 
+                    day number, 
+                    hour number, 
+                    price_ES number, 
+                    price_PT number,
+                    PRIMARY KEY (year, month, day, hour)
+                    )
+                    '''''')
+            conn.commit()
+            '''
+            # Send dataframe to db
+            df.to_sql(f'{call_data}', conn, if_exists='append', index=False,
+                    method='multi', chunksize=1000)
+            '''
+            # Check for duplicates in the
+            c.execute(f''''''
+            DELETE FROM {call_data}
+            WHERE ROWID NOT IN (
+            SELECT MIN(ROWID) FROM {call_data}
+            GROUP BY year, month, day, hour)
+            '''''')
+            '''
+            print(f'{call_data} data uploaded succesfully for year {year}')
+
+
+
+        except Exception as e:
+            print("Could not upload the data to the DB")
+            print(e)
