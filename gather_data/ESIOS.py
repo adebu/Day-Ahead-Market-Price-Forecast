@@ -57,6 +57,17 @@ class ESIOS:
         try:
             values = data["indicator"]["values"]
             df = pd.DataFrame(values)
+            df = df[['value','datetime']]
+
+            # datetime in the form 2019-01-01T00:00:00.000+01:00
+            df[['day', 'hour']] = df['datetime'].str.split('T', expand=True)
+
+            # remove hour references
+            df['hour'] = df['hour'].str[:5]
+
+            # remove unnecesary column
+            df = df.drop('datetime', axis=1)
+
             return df
         
         except Exception as e:
@@ -107,20 +118,16 @@ class ESIOS:
 
             conn = sqlite3.connect('Main_DB')
             c = conn.cursor()
-            '''
+            
             # Creates table to store marginalpdbc
-            c.execute(f''''''CREATE TABLE IF NOT EXISTS {call_data} (
-                    year number, 
-                    month number, 
-                    day number, 
-                    hour number, 
-                    price_ES number, 
-                    price_PT number,
-                    PRIMARY KEY (year, month, day, hour)
+            c.execute(f'''CREATE TABLE IF NOT EXISTS {call_data} (
+                    value number, 
+                    day date, 
+                    hour string
                     )
-                    '''''')
+                    ''')
             conn.commit()
-            '''
+        
             # Send dataframe to db
             df.to_sql(f'{call_data}', conn, if_exists='append', index=False,
                     method='multi', chunksize=1000)
@@ -133,7 +140,7 @@ class ESIOS:
             GROUP BY year, month, day, hour)
             '''''')
             '''
-            print(f'{call_data} data uploaded succesfully for year {year}')
+            print(f'{call_data} data uploaded succesfully for year {year[0:4]}')
 
 
 
