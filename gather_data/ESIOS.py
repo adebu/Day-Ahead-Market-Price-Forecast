@@ -12,16 +12,16 @@ class ESIOS:
         '''
         Download data from ESIOS API considering dates and specified demand.
         '''
+        if inputs == 'spot_price':
+            appendix = '&geo_ids[]=3'
+        else:
+            appendix = ''
 
-        urls = {
-            "demand": f"https://api.esios.ree.es/indicators/1775?type=3&start_date={start_date}&end_date={end_date}",
-            "wind": f"https://api.esios.ree.es/indicators/1777?type=20&start_date={start_date}&end_date={end_date}",
-            "solar": f"https://api.esios.ree.es/indicators/1779?type=3&start_date={start_date}&end_date={end_date}",
-            "spot_price": f"https://api.esios.ree.es/indicators/602?type=3&start_date={start_date}&end_date={end_date}"
-        }
+        indicators ={'demand':1775, 'wind':1777, 'solar': 1779, 'spot_price': 600}
+        
+        url = f"https://api.esios.ree.es/indicators/{indicators[inputs]}?start_date={start_date}&end_date={end_date}{appendix}"
+           
         try:
-
-            url = urls[inputs]
 
             # headers for the API
             headers = dict()
@@ -140,7 +140,7 @@ class ESIOS:
             GROUP BY year, month, day, hour)
             '''''')
             '''
-            print(f'{call_data} data uploaded succesfully for year {year[0:4]}')
+            print(f'{call_data} data uploaded succesfully for year {year[0:4]} ')
 
 
 

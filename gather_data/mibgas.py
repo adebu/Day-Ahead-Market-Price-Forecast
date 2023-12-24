@@ -44,7 +44,7 @@ class mibgas:
             print('Failed to retrieve the webpage. Status code:', response.status_code)
             return None
 
-    def adapt_data (df):
+    def adapt_data (df, year):
         
         
         try:
@@ -73,7 +73,9 @@ class mibgas:
                         "MIBGAS-ES Index\n[EUR/MWh]": "index_price",                      
                         'MIBGAS Index\n[EUR/MWh]': 'index_price',
                         }
-
+            
+            if year != 2023:
+                df = df.loc[df['Area']=='ES']
 
             existing_columns = set(df.columns)
             columns_to_rename = {old_col: new_col for old_col, new_col in columns.items() if old_col in existing_columns}
@@ -109,7 +111,7 @@ class mibgas:
                   method='multi', chunksize=1000)
             conn.close()
             # Send dataframe to db
-            print(f'Gas data uploaded succesfully for year {year}')
+            print(f'{len(df)} gas data values uploaded succesfully for year {year}')
 
 
 
