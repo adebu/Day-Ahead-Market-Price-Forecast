@@ -9,8 +9,7 @@ import time
 start_date = "2019-01-01T00:00:00"
 end_date = datetime.today().strftime("%Y-%m-%dT00:00:00")
 
-#training_data = ['demand', 'wind', 'solar', 'spot_price']
-training_data = ['spot_price']
+training_data = ['demand', 'wind', 'solar', 'spot_price']
 
 # convert start_date and end_date to datetime objects
 start_date = datetime.fromisoformat(start_date)

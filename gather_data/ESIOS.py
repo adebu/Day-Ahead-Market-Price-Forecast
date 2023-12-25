@@ -2,6 +2,18 @@ import pandas as pd
 import requests
 import os
 import sqlite3
+from private_info import headers
+import os
+import sys
+# Getting the current directory path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Moving one directory back
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+
+# Inserting the path to sys.path
+sys.path.insert(1, parent_dir)
+from utils import adjust_timestamp
 
 class ESIOS:
     def __init__(self):
@@ -22,14 +34,6 @@ class ESIOS:
         url = f"https://api.esios.ree.es/indicators/{indicators[inputs]}?start_date={start_date}&end_date={end_date}{appendix}"
            
         try:
-
-            # headers for the API
-            headers = dict()
-            headers['Accept'] = 'application/json; application/vnd.esios-api-v1+json'
-            headers['Content-Type'] = 'application/json'
-            headers['Host'] = 'api.esios.ree.es'
-            headers['x-api-key'] = "27ac7b794ca773e7d1c6ea0f43adfd466abe7dbd6682b769ddd29cf25536c1d6"
-            headers['Cookie'] = ''
 
             # connect to the API
             response = requests.get(url, headers=headers)
@@ -57,10 +61,15 @@ class ESIOS:
         try:
             values = data["indicator"]["values"]
             df = pd.DataFrame(values)
+            
+
+            # adjust for timezone
+            df = adjust_timestamp(df)
+
             df = df[['value','datetime']]
 
             # datetime in the form 2019-01-01T00:00:00.000+01:00
-            df[['day', 'hour']] = df['datetime'].str.split('T', expand=True)
+            df[['day', 'hour']] = df['datetime'].str.split(' ', expand=True)
 
             # remove hour references
             df['hour'] = df['hour'].str[:5]
@@ -140,7 +149,7 @@ class ESIOS:
             GROUP BY year, month, day, hour)
             '''''')
             '''
-            print(f'{call_data} data uploaded succesfully for year {year[0:4]} ')
+            print(f'{len(df)} {call_data} data values uploaded succesfully for year {year[0:4]} ')
 
 
 
