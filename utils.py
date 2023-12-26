@@ -21,10 +21,8 @@ def get_appendix(inputs):
     
     if inputs == 'spot_price':
         appendix = '&geo_ids[]=3'
-    
-    if inputs == 'nuclear':
+    elif inputs == 'nuclear':
         appendix = '&geo_agg=sum&time_trunc=hour'
-    
     else:
         appendix = ''
     
