@@ -3,7 +3,6 @@ import requests
 import os
 import sqlite3
 from private_info import headers
-import os
 import sys
 # Getting the current directory path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +12,8 @@ parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
 
 # Inserting the path to sys.path
 sys.path.insert(1, parent_dir)
-from utils import adjust_timestamp
+from utils import adjust_timestamp, get_appendix
+from infodata import url, indicators
 
 class ESIOS:
     def __init__(self):
@@ -24,19 +24,15 @@ class ESIOS:
         '''
         Download data from ESIOS API considering dates and specified demand.
         '''
-        if inputs == 'spot_price':
-            appendix = '&geo_ids[]=3'
-        else:
-            appendix = ''
+        appendix = get_appendix(inputs)
 
-        indicators ={'demand':1775, 'wind':1777, 'solar': 1779, 'spot_price': 600}
-        
-        url = f"https://api.esios.ree.es/indicators/{indicators[inputs]}?start_date={start_date}&end_date={end_date}{appendix}"
+
+        url_esios = url.format(indicators[inputs], start_date, end_date, appendix)
            
         try:
 
             # connect to the API
-            response = requests.get(url, headers=headers)
+            response = requests.get(url_esios, headers=headers)
 
             if response.status_code == 200:
                 data = response.json()
@@ -65,7 +61,6 @@ class ESIOS:
 
             # adjust for timezone
             df = adjust_timestamp(df)
-
             df = df[['value','datetime']]
 
             # datetime in the form 2019-01-01T00:00:00.000+01:00

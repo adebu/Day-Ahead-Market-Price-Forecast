@@ -2,15 +2,14 @@ from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from ESIOS import ESIOS
 from mibgas import mibgas
-import time
 
 # load data from ESIOS since 2019
 
 start_date = "2019-01-01T00:00:00"
 end_date = datetime.today().strftime("%Y-%m-%dT00:00:00")
 
-training_data = ['demand', 'wind', 'solar', 'spot_price']
-
+#training_data = ['demand', 'wind', 'solar', 'spot_price']
+training_data = ['nuclear']
 # convert start_date and end_date to datetime objects
 start_date = datetime.fromisoformat(start_date)
 end_date = datetime.fromisoformat(end_date)
@@ -43,7 +42,6 @@ while current_date <= end_date:
 
 
 # load data from MIBGAS since 2019
-    
 years = [2019, 2020, 2021, 2022, 2023]
 
 for year in years:

@@ -16,3 +16,16 @@ def adjust_timestamp(df):
     df['datetime'] =df['datetime'].astype(str)
 
     return df
+
+def get_appendix(inputs):
+    
+    if inputs == 'spot_price':
+        appendix = '&geo_ids[]=3'
+    
+    if inputs == 'nuclear':
+        appendix = '&geo_agg=sum&time_trunc=hour'
+    
+    else:
+        appendix = ''
+    
+    return appendix
