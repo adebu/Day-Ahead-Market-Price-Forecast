@@ -27,3 +27,21 @@ def get_appendix(inputs):
         appendix = ''
     
     return appendix
+
+def adjust_date(*args):
+    from datetime import datetime, timedelta
+
+    if len(args) == 2:
+        day = args[0]
+        hour = args[1]
+        adjusted_datetime = datetime.strptime(f"{day} {hour}", "%Y-%m-%d %H:%M") + timedelta(hours=1)
+        return adjusted_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    elif len(args) == 1:
+        day = args[0]
+        adjusted_datetime = datetime.strptime(f"{day}", "%Y-%m-%d") + timedelta(days=1)
+        return adjusted_datetime.strftime("%Y-%m-%d")
+
+    else:
+        raise ValueError("Issue encountered when updating dataset. Date-hour format not valid")
+
+
