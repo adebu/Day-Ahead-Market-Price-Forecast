@@ -39,13 +39,26 @@ def merge_df (wind, spot_price, solar, demand, nuclear, gas_data):
     
     return df
     
-def clean_dataset():
+def adjust_dataset(df):
     '''
     '''
-    pass
+    df['day'] = pd.to_datetime(df['day'])
+    df['day_of_week'] = df['day'].dt.dayofweek
+    df['price_week_ago'] = df['spot_price'].shift(168)
+    df['price_day_ago'] = df['spot_price'].shift(24)
+    
+    df['reference_price'] = df.apply(lambda row: row['price_week_ago'] if row['day_of_week'] in [5, 6] else row['price_day_ago'], axis=1)
+
+    X = df[['wind_generation', 'solar_generation', 'demand', 'index_price', 'nuclear_generation', 'reference_price']]
+    y = df['spot_price']
+
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=5)
+
+    return X_train, X_test, y_train, y_test
 
 
-def query_values(features, first_date = start_date):
+def query_values(first_date = start_date):
     try:
         # Connect to the SQLite database (if the database doesn't exist, it will be created)
         conn = sqlite3.connect('Main_DB')
@@ -120,7 +133,6 @@ def query_values(features, first_date = start_date):
     
     except sqlite3.Error as e:
         print("SQLite error:", e)
-        # Log the error here
 
 
 
@@ -129,5 +141,5 @@ def query_values(features, first_date = start_date):
 
 
 if __name__ == "__main__":
-    for feature in features:
-        update_datasets(feature)
+    df = query_values()
+    adjust_dataset(df)
