@@ -39,7 +39,7 @@ def merge_df (wind, spot_price, solar, demand, nuclear, gas_data):
     
     return df
     
-def adjust_dataset(df):
+def create_datasets(df):
     '''
     '''
     df['day'] = pd.to_datetime(df['day'])
@@ -87,7 +87,6 @@ def query_values(first_date = start_date):
         spot_price = pd.read_sql_query(temp_df, conn)
         spot_price.rename(columns={'value': 'spot_price'}, inplace=True)
 
-        # Your SQL query
         temp_df = '''
         SELECT * from solar
         '''
@@ -96,7 +95,6 @@ def query_values(first_date = start_date):
         solar = pd.read_sql_query(temp_df, conn)
         solar.rename(columns={'value': 'solar_generation'}, inplace=True)
 
-        # Your SQL query
         temp_df = '''
         SELECT * from demand
         '''
@@ -105,7 +103,6 @@ def query_values(first_date = start_date):
         demand = pd.read_sql_query(temp_df, conn)
         demand.rename(columns={'value': 'demand'}, inplace=True)
 
-        # Your SQL query
         temp_df = '''
         SELECT * from nuclear
         '''
@@ -114,7 +111,6 @@ def query_values(first_date = start_date):
         nuclear = pd.read_sql_query(temp_df, conn)
         nuclear.rename(columns={'value': 'nuclear_generation'}, inplace=True)
 
-        # SQL query
         temp_df = '''
         SELECT * from gas_data
         '''
@@ -141,5 +137,4 @@ def query_values(first_date = start_date):
 
 
 if __name__ == "__main__":
-    df = query_values()
-    adjust_dataset(df)
+    pass
