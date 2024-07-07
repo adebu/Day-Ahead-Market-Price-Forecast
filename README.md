@@ -1,5 +1,7 @@
 # Day Ahead Market Price Forecast
 
+## How does the Day Ahead Market Work
+
 The Day-Ahead Electricity Market in Europe plays a crucial role in the overall functioning of the electricity market by enabling power trading for the upcoming day. This market operates through a structured process that ensures efficiency, transparency, and the optimal allocation of electricity across various regions.
 
 Europe's electricity market is divided into multiple bidding zones, often aligned with national borders or distinct regions within countries. Each bidding zone has a market operator responsible for managing the day-ahead market. Prominent market operators include EPEX SPOT, Nord Pool, and OMIE. These operators coordinate the submission, matching, and settlement of electricity bids and offers.
