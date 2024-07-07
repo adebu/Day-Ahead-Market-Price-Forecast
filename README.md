@@ -1,5 +1,7 @@
 # Day Ahead Market Price Forecast
 
+## Getting Started
+
 ## How does the Day Ahead Market Work
 
 The Day-Ahead Electricity Market in Europe plays a crucial role in the overall functioning of the electricity market by enabling power trading for the upcoming day. This market operates through a structured process that ensures efficiency, transparency, and the optimal allocation of electricity across various regions.
@@ -13,17 +15,16 @@ The European market is integrated through a mechanism known as market coupling. 
 In the matching phase, the market operator matches supply and demand curves for each bidding zone to determine market clearing prices and the volumes of electricity to be traded. In this process, all accepted bids within a bidding zone are settled at the market clearing price, ensuring uniformity—sellers receive the same price for their electricity, and buyers pay the same price.
 
 
-## Models Considered
+## Features
 
-### Classical Models
+###  Models
 
 #### Linear Regression
-#### CART
-#### XGBoost
-#### AdaBoost
+#### Deep Learning Models
 
-### Deep Learning Models
-#### DNN
+### Data
+
+### Metrics
 
 ## Results
 | Model | Metric1 | Metric1 | Metric1 |
