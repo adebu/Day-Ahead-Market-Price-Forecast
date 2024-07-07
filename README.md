@@ -13,6 +13,21 @@ The European market is integrated through a mechanism known as market coupling. 
 In the matching phase, the market operator matches supply and demand curves for each bidding zone to determine market clearing prices and the volumes of electricity to be traded. In this process, all accepted bids within a bidding zone are settled at the market clearing price, ensuring uniformity—sellers receive the same price for their electricity, and buyers pay the same price.
 
 
+## Models Considered
 
-  
+### Classical Models
+
+#### Linear Regression
+#### CART
+#### XGBoost
+#### AdaBoost
+
+### Deep Learning Models
+#### DNN
+
+## Results
+| Model | Metric1 | Metric1 | Metric1 |
+| --- | --- | --- | --- |
+| git status | Result1 | Result2 | Result3 |
+| git status | Result1 | Result2 | Result3 |
   
