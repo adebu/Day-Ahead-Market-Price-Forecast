@@ -17,18 +17,23 @@ from classical_models import linear_regression, xgboost, adaboost, CART
 
 X_train, X_test, y_train, y_test, test_dates= get_df()
 
+print('Starting Calculations')
+print('Linear Regression')
 pred_regression = linear_regression(X_train, y_train, X_test)
 reg_RMSE = rmse(pred_regression, y_test)
 reg_sMAPE = sMAPE(pred_regression, y_test)
 
+print('XGB')
 pred_xgb = xgboost(X_train, y_train, X_test)
 xgb_RMSE = rmse(pred_xgb, y_test)
 xgb_sMAPE = sMAPE(pred_xgb, y_test)
 
+print('ADABoost')
 pred_ada = adaboost(X_train, y_train, X_test)
 ada_RMSE = rmse(pred_ada, y_test)
 ada_sMAPE = sMAPE(pred_ada, y_test)
 
+print('CART')
 pred_cart = CART(X_train, y_train, X_test)
 cart_RMSE = rmse(pred_cart, y_test)
 cart_sMAPE = sMAPE(pred_cart, y_test)
@@ -57,10 +62,10 @@ data_predictions = {
 }
 df_predictions = pd.DataFrame(data_predictions)
 
-
+print(df_metrics)
 
 # Optionally, save the DataFrame to a CSV file
-df_predictions.to_csv('predictions_with_dates.csv', index=False)
+df_metrics.to_csv('df_metrics.csv', index=False)
 
 
 
