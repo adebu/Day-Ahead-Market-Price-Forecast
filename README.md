@@ -18,7 +18,7 @@ Forecasting electricity market prices in Europe is crucial for both consumers an
 * **AdaBoost:** Random search was used to tune hyperparameters (```n_estimators, learning_rate, loss```).
 
 ---
-* **DNN** Optuna was used to optimize the parameters 
+* **DNN** Optuna was used to optimize the folowing hyperparameters: ```scaler, n_layers, n_neurons, epochs, batch_size```
 
 ### Data
 
@@ -38,13 +38,14 @@ Standard evaluation metrics commonly used in the literature were selected; MAE, 
 | CART | 14.42 | 0.153 |
 | XGBoost | 26.45 | 0.273 |
 | ADABoost | 18.92 | 0.166 |
+| DNN | 13.96 | 0.134 |
   
 ## Next Steps
 * Feature Selection: feature selection is a common practice in both deep learning and forecasting energy market prices [[1]](#1) and can help to improve the accuracy of the models.
-* Hyperparameter Tuning: In this version, single-step forecasting is used. That means that the neural network predicts the electricity price for the next hour based on the input data. However, some authors found better results when applying multi-step forecasting, where the neural network predicts electricity prices for the next 24 hours simultaneously [[1]](#1), [ref]
-* Data Granularity and new features: Some relevant factors like the natural gas price are very relevant to determining the marginal price. However, this data is usually given daily. Other features such as temperature in major cities have been succesfully used [[3]](#3)
+* Hyperparameter Tuning: In this version, single-step forecasting is used. That means that the neural network predicts the electricity price for the next hour based on the input data. However, some authors found better results when applying multi-step forecasting, where the neural network predicts electricity prices for the next 24 hours simultaneously [[1]](#1)
+* Data Granularity and new features: Some relevant factors like the natural gas price are very relevant to determining the marginal price. However, this data is usually given daily. Other features such as temperature in major cities have been succesfully used [[2]](#2)
 * Check accuracy of REE's Forecast: Check accuracy of REE's forecast: Our model's data is very dependent on the accuracy of REE's solar, wind, nuclear, and demand forecast. Small errors can compound and significantly impact the reliability of our predictions. It is crucial to evaluate the forecast's accuracy and consider potential improvements or adjustments to ensure that our model's performance is not adversely affected by forecast inaccuracies.
-* Use different methods proposed in different papers like LSTM [[2]](#2), CNN [[5]](#5) or ensemble methods [[4]](#4)
+* Use different methods proposed in different papers like LSTM [[3]](#3), ensemble methods [[4]](#4) or CNN [[5]](#5)
 * Improve metrics: include standard statistical tests such as Diebold-Mariano to evaluate statistical differences [[1]](#1).
 
 The final objective of this project is to provide a reliable forecast of the Day Ahead Energy Market price for several regions of Europe.
@@ -60,11 +61,13 @@ Volume 293,
 ISSN 0306-2619,
 https://doi.org/10.1016/j.apenergy.2021.116983.
 
-<a id="2">[2]</a> 
+<a id="2">[2]</a>
+https://www.kaggle.com/code/dimitriosroussis/electricity-price-forecasting-with-dnns-eda
+
+<a id="3">[3]</a> 
 S. Zhou, L. Zhou, M. Mao, H. -M. Tai and Y. Wan, "An Optimized Heterogeneous Structure LSTM Network for Electricity Price Forecasting," in IEEE Access, vol. 7, pp. 108161-108173, 2019
 
-<a id="3">[3]</a>
-https://www.kaggle.com/code/dimitriosroussis/electricity-price-forecasting-with-dnns-eda
+
 
 <a id="4">[4]</a>
 Michał Narajewski, Florian Ziel,
