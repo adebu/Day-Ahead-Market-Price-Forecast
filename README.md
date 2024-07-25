@@ -1,6 +1,6 @@
 # Day Ahead Market Price Forecast
 
-## How do the Day Ahead Market Work
+## How does the Day Ahead Market Work
 
 The Day-Ahead Electricity Market in Europe plays a crucial role in the overall functioning of the electricity market by enabling power trading for the upcoming day. This market operates through a structured process that ensures efficiency, transparency, and the optimal allocation of electricity across various regions.
 
@@ -44,7 +44,7 @@ Standard evaluation metrics commonly used in the literature were selected; MAE, 
 * Feature Selection: feature selection is a common practice in both deep learning and forecasting energy market prices [[1]](#1) and can help to improve the accuracy of the models.
 * Hyperparameter Tuning: In this version, single-step forecasting is used. That means that the neural network predicts the electricity price for the next hour based on the input data. However, some authors found better results when applying multi-step forecasting, where the neural network predicts electricity prices for the next 24 hours simultaneously [[1]](#1)
 * Data Granularity and new features: Some relevant factors like the natural gas price are very relevant to determining the marginal price. However, this data is usually given daily. Other features such as temperature in major cities have been succesfully used [[2]](#2)
-* Check accuracy of REE's Forecast: Check accuracy of REE's forecast: Our model's data is very dependent on the accuracy of REE's solar, wind, nuclear, and demand forecast. Small errors can compound and significantly impact the reliability of our predictions. It is crucial to evaluate the forecast's accuracy and consider potential improvements or adjustments to ensure that our model's performance is not adversely affected by forecast inaccuracies.
+* Check accuracy of REE's Forecast:  Our model's data is very dependent on the accuracy of REE's solar, wind, nuclear, and demand forecast. Small errors can compound and significantly impact the reliability of our predictions. It is crucial to evaluate the forecast's accuracy and consider potential improvements or adjustments to ensure that our model's performance is not adversely affected by forecast inaccuracies.
 * Use different methods proposed in different papers like LSTM [[3]](#3), ensemble methods [[4]](#4) or CNN [[5]](#5)
 * Improve metrics: include standard statistical tests such as Diebold-Mariano to evaluate statistical differences [[1]](#1).
 
